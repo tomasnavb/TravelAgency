@@ -4,11 +4,14 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -22,6 +25,7 @@ public class Tour {
 	public enum Continent {
 		AFRICA, ASIA, EUROPE, NORTH_AMERICA, SOUTH_AMERICA;
 	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -32,17 +36,27 @@ public class Tour {
 	@Pattern(regexp = "^[a-zA-Z]{2}-[0-9]{2}[a-zA-Z]{1}$", message = "{tour.code.pattern}")
 	private String code;
 	private Continent continent;
-	@NotNull(message="{tour.date.notnull}")
-	@Future(message="{tour.date.future}")
+	@NotNull(message = "{tour.date.notnull}")
+	@Future(message = "{tour.date.future}")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
-	@Min(value=7, message="{tour.duration}")
-	@Max(value=21, message="{tour.duration}")
+	@Min(value = 7, message = "{tour.duration}")
+	@Max(value = 21, message = "{tour.duration}")
 	private int duration;
-	@Column(name= "all_inclusive")
-	private boolean allInclusive;
-	
-	
+	@Column(name = "all_inclusive")
+	private boolean allInclusive = false;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "tour_details_id")
+	private TourDetails tourDetails;
+
+	public TourDetails getTourDetails() {
+		return tourDetails;
+	}
+
+	public void setTourDetails(TourDetails tourDetails) {
+		this.tourDetails = tourDetails;
+	}
+
 	public int getId() {
 		return id;
 	}
