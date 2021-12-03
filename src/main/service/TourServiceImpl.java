@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import main.dao.TourDAO;
 import main.model.Tour;
+import main.model.TourDetails;
 
 @Service
 @Transactional
@@ -36,6 +37,15 @@ public class TourServiceImpl implements TourService {
 	@Override
 	public void delete(int id) {
 		tourDAO.delete(id);	
+	}
+
+	@Override
+	public void addTourDetailsIfNotExists(Tour tour) {
+		if(tour.getTourDetails() == null) {
+			tour.setTourDetails(new TourDetails());
+			saveOrUpdate(tour);
+		}
+		
 	}
 
 }

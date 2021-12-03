@@ -11,4 +11,6 @@ public interface TourService {
 	public Tour getById(int id);
 	public void saveOrUpdate(Tour tour);
 	public void	 delete(int id);
+	
+	public void addTourDetailsIfNotExists(Tour tour);
 }
