@@ -13,6 +13,7 @@ import main.model.TourDetails;
 
 @Service
 @Transactional
+
 public class TourServiceImpl implements TourService {
 	
 	@Autowired
@@ -26,6 +27,7 @@ public class TourServiceImpl implements TourService {
 	@Override
 	public Tour getById(int id) {
 		return tourDAO.getById(id);
+		
 	}
 
 	@Override
@@ -46,6 +48,11 @@ public class TourServiceImpl implements TourService {
 			saveOrUpdate(tour);
 		}
 		
+	}
+
+	@Override
+	public Tour getByIdWithComments(int id) {
+		return tourDAO.getByIdWithComments(id);
 	}
 
 }
