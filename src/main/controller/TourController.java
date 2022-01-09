@@ -67,4 +67,11 @@ public class TourController {
 		tourService.addUserToTour(id, userId);
 		return "redirect:/showOffer";
 	}
+	
+	@GetMapping("/showOfferForNextMonth")
+	public String getToursForTheNextMonth(Model model) {
+		List<Tour> tours = tourService.getAllForNextMonth();
+		model.addAttribute("tours", tours);
+		return "tours";
+	}
 }
