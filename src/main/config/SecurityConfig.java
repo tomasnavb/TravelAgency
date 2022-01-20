@@ -40,8 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		http.authorizeRequests()
 			.antMatchers("/", "/login")
 				.permitAll()
-			.antMatchers("/addTour")
-				.hasAnyRole("ADMIN", "EMPLOYEE")
+			.antMatchers("/addTour", "/editTour")
+				.hasAnyRole("EMPLOYEE")
+			.antMatchers("/deleteTour")
+				.hasAnyRole("ADMIN")
+			.antMatchers("/addComment", "addUserToTour")
+				.hasAnyRole("CLIENT")
 			.and()
 				.formLogin()
 				.loginPage("/login")
@@ -56,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 				.permitAll()
 			.and()
 				.exceptionHandling().accessDeniedPage("/forbidden");
+		http.csrf().disable();
 				
 	}
 	
