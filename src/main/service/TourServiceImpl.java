@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import main.error.TourNotFoundException;
 import main.model.Tour;
 import main.model.User;
 import main.repository.TourRepository;
@@ -32,7 +33,7 @@ public class TourServiceImpl implements TourService {
 
 	@Override
 	public Tour getById(int id) {
-		return tourRepository.findById(id).get();
+		return tourRepository.findById(id).orElseThrow(() -> new TourNotFoundException("Tour id " + id + " not found"));
 
 	}
 

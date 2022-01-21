@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import main.error.TourErrorResponse;
+import main.error.TourNotFoundException;
 import main.model.Tour;
 import main.service.TourService;
 
@@ -59,7 +62,8 @@ public class TourRestController {
 	
 	@PutMapping("/tours")
 	private ResponseEntity<Void> editTour(@RequestBody Tour tour) {
-		tourService.saveOrUpdate(tour);
+		Tour t = tourService.getById(tour.getId());
+		tourService.saveOrUpdate(t);
 		
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add("Method", "editTour");
@@ -70,11 +74,23 @@ public class TourRestController {
 	
 	@DeleteMapping("/tours/{id}")
 	private ResponseEntity<Void> deleteTour(@PathVariable int id) {
-		tourService.delete(id);
+		Tour tour = tourService.getById(id);
+		tourService.delete(tour.getId());
 		
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add("Method", "deleteTour");
 
 		return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(null);
 	}
+	
+	@ExceptionHandler
+	public ResponseEntity<TourErrorResponse> handlerException(TourNotFoundException exception) {
+		TourErrorResponse error = new TourErrorResponse();
+		error.setIdStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage(exception.getMessage());
+		error.setTimestamp(System.currentTimeMillis());
+		
+		return new ResponseEntity<TourErrorResponse>(error, HttpStatus.NOT_FOUND);
+	}
+	
 }
