@@ -23,6 +23,7 @@ html, body {
 .card-header {
 	color: white;
 	text-align: center;
+	font-family: cursive;
 }
 
 .input-group-prepend span {

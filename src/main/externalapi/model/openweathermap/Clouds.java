@@ -1,6 +1,6 @@
 package main.externalapi.model.openweathermap;
 
-public class Cloud {
+public class Clouds {
 
 	private int all;
 
@@ -14,7 +14,7 @@ public class Cloud {
 
 	@Override
 	public String toString() {
-		return "Cloud [all=" + all + "]";
+		return "Clouds [all=" + all + "]";
 	}
 
 }

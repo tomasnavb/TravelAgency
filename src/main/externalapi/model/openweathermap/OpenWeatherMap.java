@@ -2,6 +2,9 @@ package main.externalapi.model.openweathermap;
 
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OpenWeatherMap {
 
 	private Coord coord;
@@ -10,7 +13,7 @@ public class OpenWeatherMap {
 	private Main main;
 	private int visibility;
 	private Wind wind;
-	private Cloud cloud;
+	private Clouds clouds;
 	private Rain rain;
 	private Snow snow;
 	private long dt;
@@ -68,12 +71,12 @@ public class OpenWeatherMap {
 		this.wind = wind;
 	}
 
-	public Cloud getCloud() {
-		return cloud;
+	public Clouds getClouds() {
+		return clouds;
 	}
 
-	public void setCloud(Cloud cloud) {
-		this.cloud = cloud;
+	public void setClouds(Clouds clouds) {
+		this.clouds = clouds;
 	}
 
 	public Rain getRain() {
@@ -143,7 +146,7 @@ public class OpenWeatherMap {
 	@Override
 	public String toString() {
 		return "OpenWeatherMap [coord=" + coord + ", weather=" + Arrays.toString(weather) + ", base=" + base + ", main="
-				+ main + ", visibility=" + visibility + ", wind=" + wind + ", cloud=" + cloud + ", rain=" + rain
+				+ main + ", visibility=" + visibility + ", wind=" + wind + ", clouds=" + clouds + ", rain=" + rain
 				+ ", snow=" + snow + ", dt=" + dt + ", sys=" + sys + ", timezone=" + timezone + ", id=" + id + ", name="
 				+ name + ", cod=" + cod + "]";
 	}

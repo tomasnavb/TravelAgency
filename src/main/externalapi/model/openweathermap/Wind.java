@@ -3,7 +3,7 @@ package main.externalapi.model.openweathermap;
 public class Wind {
 
 	private double speed;
-	private double deb;
+	private double deg;
 	private double gust;
 
 	public double getSpeed() {
@@ -14,12 +14,12 @@ public class Wind {
 		this.speed = speed;
 	}
 
-	public double getDeb() {
-		return deb;
+	public double getDeg() {
+		return deg;
 	}
 
-	public void setDeb(double deb) {
-		this.deb = deb;
+	public void setDeg(double deg) {
+		this.deg = deg;
 	}
 
 	public double getGust() {
@@ -32,7 +32,7 @@ public class Wind {
 
 	@Override
 	public String toString() {
-		return "Wind [speed=" + speed + ", deb=" + deb + ", gust=" + gust + "]";
+		return "Wind [speed=" + speed + ", deb=" + deg + ", gust=" + gust + "]";
 	}
 
 }
