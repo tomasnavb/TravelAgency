@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import main.model.User;
 import main.service.UserService;
 
@@ -42,7 +41,7 @@ public class LoginController {
 			redirectAttributes.addAttribute("differentPasswords", "Passwords are different");
 			errors = true;
 		}
-
+		
 		if (userService.loginExists(user.getLogin())) {
 			redirectAttributes.addAttribute("loginExists", "Login already exists in the database");
 			errors = true;

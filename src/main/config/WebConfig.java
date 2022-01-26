@@ -63,6 +63,8 @@ public class WebConfig implements WebMvcConfigurer {
 	public Validator getValidator() {
 		return createValidator();
 	}
+
+	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
